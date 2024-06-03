@@ -11,7 +11,16 @@ MRuby::Gem::Specification.new('mruby-commit-id') do |spec|
 end
 
 def read_commit_id(mruby_root)
-  head = File.read(File.join(mruby_root, '.git', 'HEAD')).chomp
+  dotgit = File.join(mruby_root, '.git')
+  if File.file?(dotgit)
+    gitdir = File.read(dotgit).chomp
+    raise "Not a git repository: #{gitdir}" unless gitdir =~ /^gitdir:/
+
+    submodule_root = File.expand_path(File.join(mruby_root, gitdir.split(' ').last))
+    return read_commit_id(submodule_root)
+  end
+
+  head = File.read(File.join(dotgit, 'HEAD')).chomp
   if head =~ /^ref:/
     refs = head.split(' ').last
     File.read(File.join(mruby_root, '.git', refs)).chomp
