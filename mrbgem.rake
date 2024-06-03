@@ -22,7 +22,7 @@ def read_commit_id(root)
   head = File.read(File.join(root, 'HEAD')).chomp
   if head =~ /^ref:/
     refs = head.split(' ').last
-    File.read(File.join(mruby_root, '.git', refs)).chomp
+    File.read(File.join(root, refs)).chomp
   else
     head
   end
