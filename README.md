@@ -4,11 +4,6 @@ This repository adds two global constants, `MRUBY_COMMIT_ID` and `MRUBY_COMMIT_I
 > [!NOTE]
 > This mrbgem will not function properly without a `.git` directory included in the mruby source code.
 
-## Requirements
-
-* git command
-* mruby source code containing a `.git` directory
-
 ## Usage
 
 ```ruby
