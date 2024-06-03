@@ -12,10 +12,10 @@ end
 
 def read_commit_id(root)
   if File.file?(root)
-    gitdir = File.read(dotgit).chomp
+    gitdir = File.read(root).chomp
     raise "Not a git repository: #{gitdir}" unless gitdir =~ /^gitdir:/
 
-    submodule_root = File.expand_path(File.join(mruby_root, '..', gitdir.split(' ').last))
+    submodule_root = File.expand_path(File.join(root, '..', gitdir.split(' ').last))
     return read_commit_id(submodule_root)
   end
 
